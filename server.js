@@ -14,22 +14,35 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+app.get("/", (req, res) => {
+  res.send("API de análise de licitações rodando 🚀");
+});
+
 app.post("/analisar", upload.single("file"), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ erro: "Arquivo não enviado" });
+    }
+
     const buffer = fs.readFileSync(req.file.path);
     const pdf = await pdfParse(buffer);
 
     const prompt = `
-Atue como um especialista em licitações públicas e auditoria, com domínio da Lei 14.133/2021.
+Atue como especialista em licitações com base na Lei 14.133/2021.
 
 Analise o edital abaixo:
 
 ${pdf.text}
 
-(Use TODA a estrutura solicitada: tabelas, análise jurídica, riscos, oportunidades e classificação final)
+Gere relatório técnico completo com:
+- tabela de dados
+- análise jurídica
+- riscos
+- oportunidades
+- classificação final
 `;
 
-    const response = await openai.chat.completions.create({
+    const completion = await openai.chat.completions.create({
       model: "gpt-4.1-mini",
       messages: [{ role: "user", content: prompt }],
     });
@@ -37,13 +50,17 @@ ${pdf.text}
     fs.unlinkSync(req.file.path);
 
     res.json({
-      resultado: response.choices[0].message.content,
+      resultado: completion.choices[0].message.content,
     });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ erro: "Erro ao analisar edital" });
+    console.error("ERRO:", error);
+    res.status(500).json({ erro: "Erro interno no servidor" });
   }
 });
 
-app.listen(3000, () => console.log("Servidor rodando"));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
