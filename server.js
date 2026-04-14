@@ -43,10 +43,17 @@ Gere relatório técnico completo com:
 - classificação final
 `;
 
-   const completion = await openai.chat.completions.create({
-     model: "llama-3.3-70b-versatile",
-     messages: [{ role: "user", content: prompt }],
+    const completion = await openai.chat.completions.create({
+      model: "llama3-70b-8192",
+      messages: [
+       {
+          role: "user",
+          content: prompt,
+       },
+     ],
    });
+
+  console.log("RESPOSTA IA:", completion);
 
     fs.unlinkSync(req.file.path);
 
