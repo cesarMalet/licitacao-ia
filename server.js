@@ -40,18 +40,53 @@ app.post("/analisar", upload.single("file"), async (req, res) => {
     }	
 
     const prompt = `
-Atue como especialista em licitações com base na Lei 14.133/2021.
+Atue como um especialista em licitações públicas e auditoria, com domínio da Lei 14.133/2021.
 
-Analise o edital abaixo:
+Analise o edital fornecido, considerando que se trata de uma contratação por DISPENSA DE LICITAÇÃO.
 
+Elabore um RELATÓRIO TÉCNICO COMPLETO, com linguagem profissional e foco consultivo, contendo:
+
+1. Tabela com:
+- Número da contratação
+- Valor estimado
+- Data de início
+- Data final
+- Entidade responsável
+- Portal da licitação
+
+2. Análise jurídica com base na Lei 14.133/21, identificando:
+- Exigências restritivas (citar trechos do edital)
+- Falhas ou ausência de clareza no objeto
+- Prazos ilegais ou inexequíveis
+- Exigências documentais irregulares ou excessivas
+- Inconsistências entre documentos
+- Declarações e atestados técnicos exigidos
+
+3. Execução contratual:
+- Tabela com cronograma de entrega dos produtos/serviços
+
+4. Condições de pagamento:
+- Forma, prazo e requisitos
+
+5. Informações de entrega:
+- Local, data e hora
+
+6. Visão estratégica:
+- Riscos para participação
+- Oportunidades comerciais
+- Sugestões de melhoria do edital
+
+7. Classificação final:
+- Regular, Regular com Ressalvas ou Irregular (com justificativa técnica)
+
+IMPORTANTE:
+- Se alguma informação não estiver presente, escrever: "NÃO INFORMADO"
+- Organizar a resposta com títulos claros, separações e tabelas bem definidas
+- Não responder de forma genérica
+- Estruturar como um parecer profissional
+
+Edital para análise:
 ${text}
-
-Gere relatório técnico completo com:
-- tabela de dados
-- análise jurídica
-- riscos
-- oportunidades
-- classificação final
 `;
 
     const completion = await openai.chat.completions.create({
