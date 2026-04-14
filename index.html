@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Análise de Licitações com IA</title>
+</head>
+<body>
+
+  <h1>Análise de Licitações (Lei 14.133/21)</h1>
+
+  <input type="file" id="fileInput" accept="application/pdf">
+  <br><br>
+  <button onclick="analisar()">Analisar</button>
+
+  <h2>Resultado:</h2>
+  <pre id="resultado"></pre>
+
+  <script>
+    const API_URL = "https://licitacao-ia-0bjj.onrender.com/analisar";
+
+    async function analisar() {
+      const fileInput = document.getElementById("fileInput");
+      const resultado = document.getElementById("resultado");
+
+      if (!fileInput.files.length) {
+        alert("Selecione um arquivo PDF");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      resultado.innerText = "Analisando... aguarde ⏳";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        resultado.innerText = data.resultado || "Erro na análise";
+
+      } catch (error) {
+        resultado.innerText = "Erro ao conectar com o servidor";
+        console.error(error);
+      }
+    }
+  </script>
+
+</body>
+</html>
