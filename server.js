@@ -8,14 +8,14 @@ import OpenAI from "openai";
 const app = express();
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("API de análise de licitações rodando 🚀");
+});
+
 const upload = multer({ dest: "uploads/" });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
-
-app.get("/", (req, res) => {
-  res.send("API de análise de licitações rodando 🚀");
 });
 
 app.post("/analisar", upload.single("file"), async (req, res) => {
