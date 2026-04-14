@@ -28,12 +28,23 @@ app.post("/analisar", upload.single("file"), async (req, res) => {
     const buffer = fs.readFileSync(req.file.path);
     const pdf = await pdfParse(buffer);
 
+    let text = "";
+
+// 🔥 LIMITADOR INTELIGENTE
+    const MAX_CHARS = 8000;
+
+    if (pdf.text.length > MAX_CHARS) {
+      text = pdf.text.substring(0, MAX_CHARS);
+    } else {
+      text = pdf.text;
+    }	
+
     const prompt = `
 Atue como especialista em licitações com base na Lei 14.133/2021.
 
 Analise o edital abaixo:
 
-${pdf.text}
+${text}
 
 Gere relatório técnico completo com:
 - tabela de dados
