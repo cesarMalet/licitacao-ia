@@ -16,6 +16,7 @@ const upload = multer({ dest: "uploads/" });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
 });
 
 app.post("/analisar", upload.single("file"), async (req, res) => {
@@ -42,10 +43,10 @@ Gere relatório técnico completo com:
 - classificação final
 `;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
-      messages: [{ role: "user", content: prompt }],
-    });
+   const completion = await openai.chat.completions.create({
+     model: "llama-3.3-70b-versatile",
+     messages: [{ role: "user", content: prompt }],
+   });
 
     fs.unlinkSync(req.file.path);
 
