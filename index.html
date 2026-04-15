@@ -3,6 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Análise de Licitações com IA</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f7fa;
+      padding: 20px;
+    }
+
+    .relatorio {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      line-height: 1.6;
+    }
+
+    .relatorio h2 {
+      color: #1e3a8a;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 5px;
+    }
+
+    .relatorio h3 {
+      color: #374151;
+    }
+
+    .relatorio table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    .relatorio table th {
+      background: #1e3a8a;
+      color: white;
+      padding: 8px;
+    }
+
+    .relatorio table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .relatorio ul {
+      margin-left: 20px;
+    }
+</style>
+
 </head>
 <body>
 
@@ -13,7 +61,7 @@
   <button onclick="analisar()">Analisar</button>
 
   <h2>Resultado:</h2>
-  <div id="resultado" style="white-space: pre-wrap; font-family: Arial; line-height:1.6;"></div>
+  <div id="resultado" class="relatorio"></div>
 
   <script>
     const API_URL = "https://licitacao-ia-0bjj.onrender.com/analisar";
@@ -40,7 +88,7 @@
 
         const data = await response.json();
 
-        resultado.innerText = data.resultado || "Erro na análise";
+        resultado.innerHTML = marked.parse(data.resultado || "Erro na análise");
 
       } catch (error) {
         resultado.innerText = "Erro ao conectar com o servidor";
