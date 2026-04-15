@@ -69,16 +69,16 @@ Sua resposta DEVE seguir exatamente a estrutura abaixo, com formatação profiss
 
 ## 2. ANÁLISE JURÍDICA (Lei 14.133/21)
 
-### 2.1 Exigências restritivas
+### 2.1 Exigências restritivas (citar trechos do edital)
 - 
 
-### 2.2 Falhas no objeto
+### 2.2 Falhas ou ausência de clareza no objeto
 - 
 
 ### 2.3 Prazos ilegais ou inexequíveis
 - 
 
-### 2.4 Exigências documentais irregulares
+### 2.4 Exigências documentais irregulares ou excessivas
 - 
 
 ### 2.5 Inconsistências entre documentos
@@ -86,7 +86,28 @@ Sua resposta DEVE seguir exatamente a estrutura abaixo, com formatação profiss
 
 ---
 
-## 3. EXECUÇÃO CONTRATUAL
+## 3. LISTAR DE DOCUMENTOS
+
+### 3.1 Alvarás
+- 
+
+### 3.2 Certificado de regularidade
+- 
+
+### 3.3 Prova de regularidade
+- 
+
+### 3.4 Certidões negativas
+- 
+
+### 3.5 Atestados de Capacidade Técnica
+- 
+
+### 3.6 Comprovação de Enquadramento
+- 
+
+---
+## 4. EXECUÇÃO CONTRATUAL
 
 | Etapa | Descrição | Prazo |
 |------|----------|------|
@@ -94,7 +115,7 @@ Sua resposta DEVE seguir exatamente a estrutura abaixo, com formatação profiss
 
 ---
 
-## 4. CONDIÇÕES DE PAGAMENTO
+## 5. CONDIÇÕES DE PAGAMENTO
 
 Descrever de forma clara:
 - Forma:
@@ -103,7 +124,7 @@ Descrever de forma clara:
 
 ---
 
-## 5. ENTREGA
+## 6. ENTREGA (se a entrega for conforme outro documento, informar como Obs:)
 
 - Local:
 - Data:
@@ -111,7 +132,7 @@ Descrever de forma clara:
 
 ---
 
-## 6. VISÃO ESTRATÉGICA
+## 7. VISÃO ESTRATÉGICA
 
 ### Riscos:
 - 
@@ -124,12 +145,16 @@ Descrever de forma clara:
 
 ---
 
-## 7. CLASSIFICAÇÃO FINAL
+## 8. CLASSIFICAÇÃO FINAL
 
 Classificação: (Regular / Regular com Ressalvas / Irregular)
-
+-
 Justificativa:
 -
+
+---
+
+## 9. Se alguma informação não estiver presente no edital, indicar explicitamente como "NÃO INFORMADO" e analisar o impacto jurídico dessa ausência.:
 
 ---
 
