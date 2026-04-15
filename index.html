@@ -4,11 +4,28 @@
   <meta charset="UTF-8">
   <title>Análise de Licitações com IA</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
       font-family: Arial;
       background: #f5f7fa;
       padding: 20px;
+    }
+
+    .cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+       width: 80px;
+    }
+
+    .cabecalho h2 {
+      color: #1e3a8a;
+      margin: 0;
     }
 
     .relatorio {
@@ -59,6 +76,12 @@
   <input type="file" id="fileInput" accept="application/pdf">
   <br><br>
   <button onclick="analisar()">Analisar</button>
+  <button onclick="gerarPDF()">Baixar PDF</button>
+
+  <div class="cabecalho">
+    <img src="logo.png" class="logo">
+    <h2>Relatório de Análise de Licitação</h2>
+  </div>
 
   <h2>Resultado:</h2>
   <div id="resultado" class="relatorio"></div>
@@ -95,7 +118,34 @@
         console.error(error);
       }
     }
-  </script>
+
+    async function gerarPDF() {
+      const { jsPDF } = window.jspdf;
+
+      const elemento = document.getElementById("resultado");
+
+      if (!elemento.innerHTML.trim()) {
+        alert("Nenhum relatório para exportar");
+        return;
+      }
+
+      let nomeArquivo = prompt("Digite o nome do arquivo:", "relatorio_licitacao");
+
+      if (!nomeArquivo) nomeArquivo = "relatorio_licitacao";
+
+      const doc = new jsPDF("p", "pt", "a4");
+
+      await doc.html(elemento, {
+        callback: function (doc) {
+          doc.save(nomeArquivo + ".pdf");
+        },
+        x: 20,
+        y: 20,
+        width: 555
+      });
+    }
+
+</script>
 
 </body>
 </html>
