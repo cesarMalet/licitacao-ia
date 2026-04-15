@@ -40,52 +40,100 @@ app.post("/analisar", upload.single("file"), async (req, res) => {
     }	
 
     const prompt = `
-Atue como um especialista em licitações públicas e auditoria, com domínio da Lei 14.133/2021.
+Atue como especialista em licitações públicas, com domínio da Lei 14.133/2021.
 
-Analise o edital fornecido, considerando que se trata de uma contratação por DISPENSA DE LICITAÇÃO.
+Sua resposta DEVE seguir exatamente a estrutura abaixo, com formatação profissional em Markdown.
 
-Elabore um RELATÓRIO TÉCNICO COMPLETO, com linguagem profissional e foco consultivo, contendo:
-
-1. Tabela com:
-- Número da contratação
-- Valor estimado
-- Data de início
-- Data final
-- Entidade responsável
-- Portal da licitação
-
-2. Análise jurídica com base na Lei 14.133/21, identificando:
-- Exigências restritivas (citar trechos do edital)
-- Falhas ou ausência de clareza no objeto
-- Prazos ilegais ou inexequíveis
-- Exigências documentais irregulares ou excessivas
-- Inconsistências entre documentos
-- Declarações e atestados técnicos exigidos
-
-3. Execução contratual:
-- Tabela com cronograma de entrega dos produtos/serviços
-
-4. Condições de pagamento:
-- Forma, prazo e requisitos
-
-5. Informações de entrega:
-- Local, data e hora
-
-6. Visão estratégica:
-- Riscos para participação
-- Oportunidades comerciais
-- Sugestões de melhoria do edital
-
-7. Classificação final:
-- Regular, Regular com Ressalvas ou Irregular (com justificativa técnica)
-
-IMPORTANTE:
-- Se alguma informação não estiver presente, escrever: "NÃO INFORMADO"
-- Organizar a resposta com títulos claros, separações e tabelas bem definidas
+⚠️ REGRAS OBRIGATÓRIAS:
+- Não escrever texto fora das seções
+- Usar títulos com "##"
+- Usar tabelas em Markdown
 - Não responder de forma genérica
-- Estruturar como um parecer profissional
+- Sempre preencher com "NÃO INFORMADO" quando faltar dado
+- Linguagem técnica, objetiva e profissional
 
-Edital para análise:
+---
+
+## 1. DADOS GERAIS DA CONTRATAÇÃO
+
+| Item | Informação |
+|------|-----------|
+| Número da contratação | |
+| Valor estimado | |
+| Data de início | |
+| Data final | |
+| Entidade responsável | |
+| Portal da licitação | |
+
+---
+
+## 2. ANÁLISE JURÍDICA (Lei 14.133/21)
+
+### 2.1 Exigências restritivas
+- 
+
+### 2.2 Falhas no objeto
+- 
+
+### 2.3 Prazos ilegais ou inexequíveis
+- 
+
+### 2.4 Exigências documentais irregulares
+- 
+
+### 2.5 Inconsistências entre documentos
+- 
+
+---
+
+## 3. EXECUÇÃO CONTRATUAL
+
+| Etapa | Descrição | Prazo |
+|------|----------|------|
+| | | |
+
+---
+
+## 4. CONDIÇÕES DE PAGAMENTO
+
+Descrever de forma clara:
+- Forma:
+- Prazo:
+- Requisitos:
+
+---
+
+## 5. ENTREGA
+
+- Local:
+- Data:
+- Hora:
+
+---
+
+## 6. VISÃO ESTRATÉGICA
+
+### Riscos:
+- 
+
+### Oportunidades:
+- 
+
+### Sugestões:
+- 
+
+---
+
+## 7. CLASSIFICAÇÃO FINAL
+
+Classificação: (Regular / Regular com Ressalvas / Irregular)
+
+Justificativa:
+-
+
+---
+
+## EDITAL ANALISADO:
 ${text}
 `;
 
