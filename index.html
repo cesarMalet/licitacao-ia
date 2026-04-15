@@ -5,6 +5,9 @@
   <title>Análise de Licitações com IA</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
   <style>
     body {
       font-family: Arial;
@@ -21,6 +24,16 @@
 
     .logo {
        width: 80px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-right: 4px; /* 👈 espaço de 4 */
+      cursor: pointer;
+    }
+
+    .btn-pdf {
+      margin-left: 4px;
     }
 
     .cabecalho h2 {
@@ -66,7 +79,7 @@
     .relatorio ul {
       margin-left: 20px;
     }
-</style>
+  </style>
 
 </head>
 <body>
@@ -76,11 +89,11 @@
   <input type="file" id="fileInput" accept="application/pdf">
   <br><br>
   <button onclick="analisar()">Analisar</button>
-  <button onclick="gerarPDF()">Baixar PDF</button>
+  <button onclick="gerarPDF()" class="btn-pdf">Gerar PDF</button>
 
   <div class="cabecalho">
-    <img src="logo.png" class="logo">
     <h2>Relatório de Análise de Licitação</h2>
+    <img src="logo.png" class="logo">
   </div>
 
   <h2>Resultado:</h2>
@@ -119,31 +132,45 @@
       }
     }
 
-    async function gerarPDF() {
-      const { jsPDF } = window.jspdf;
+  async function gerarPDF() {
+    const elemento = document.getElementById("resultado");
 
-      const elemento = document.getElementById("resultado");
-
-      if (!elemento.innerHTML.trim()) {
-        alert("Nenhum relatório para exportar");
-        return;
-      }
-
-      let nomeArquivo = prompt("Digite o nome do arquivo:", "relatorio_licitacao");
-
-      if (!nomeArquivo) nomeArquivo = "relatorio_licitacao";
-
-      const doc = new jsPDF("p", "pt", "a4");
-
-      await doc.html(elemento, {
-        callback: function (doc) {
-          doc.save(nomeArquivo + ".pdf");
-        },
-        x: 20,
-        y: 20,
-        width: 555
-      });
+    if (!elemento.innerHTML.trim()) {
+      alert("Nenhum relatório para exportar");
+      return;
     }
+
+    let nomeArquivo = prompt("Digite o nome do arquivo:", "relatorio_licitacao");
+    if (!nomeArquivo) nomeArquivo = "relatorio_licitacao";
+
+    const canvas = await html2canvas(elemento, {
+      scale: 2
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const imgWidth = 210;
+    const pageHeight = 297;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save(nomeArquivo + ".pdf");
+  }
 
 </script>
 
